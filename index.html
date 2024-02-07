@@ -1,47 +1,40 @@
 <!DOCTYPE html>
 <html lang="en-us">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Niki Merge</title>
-    <script src="playDeckBridge.js"></script>
-</head>
-<body class="dark">
-<div id="unity-container" style="position: absolute; width: 100%; height: 100%">
-    <canvas id="unity-canvas" width=520 height=960 style="width: 100%; height: 100%"></canvas>
-</div>
-<script>
-    const buildUrl = "Build";
-    const loaderUrl = buildUrl + "/MemeCoin.loader.js";
-    const config = {
-        dataUrl: buildUrl + "/5a27c4153769ff0bf38cefb9716ca9cd.data",
-        frameworkUrl: buildUrl + "/89ab6b901b8a2b5bb5588006ed100f69.js",
-        codeUrl: buildUrl + "/812104f4fcdb1a8db0ce2f76bd6c2bf7.wasm",
+    <title>Unity WebGL Player | Niki Merge</title>
+  </head>
+  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
+    <canvas id="unity-canvas" width=520 height=960 tabindex="-1" style="width: 520px; height: 960px; background: #231F20"></canvas>
+    <script src="Build/MemeCoin.loader.js"></script>
+    <script>
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+
+        var canvas = document.querySelector("#unity-canvas");
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+        canvas.style.position = "fixed";
+
+        document.body.style.textAlign = "left";
+      }
+
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/5f4344fe05be031270c64181a8c80e64.data",
+        frameworkUrl: "Build/89ab6b901b8a2b5bb5588006ed100f69.js",
+        codeUrl: "Build/812104f4fcdb1a8db0ce2f76bd6c2bf7.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Niki Company",
         productName: "Niki Merge",
         productVersion: "3.0.0",
-    };
-
-    const container = document.querySelector("#unity-container");
-    const canvas = document.querySelector("#unity-canvas");
-
-    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        config.devicePixelRatio = window.devicePixelRatio;
-    }
-    
-    const script = document.createElement("script");
-    script.src = loaderUrl;
-    script.onload = () => {
-        const playdeckBridgeInstance = playDeckBridge();
-        createUnityInstance(canvas, config, (progress) => {
-            playdeckBridgeInstance?.setLoadingProgress(progress * 100)
-        }).then(unityInstance => {
-            playdeckBridgeInstance?.init(unityInstance);
-        });
-    };
-    document.body.appendChild(script);
-</script>
-</body>
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      });
+    </script>
+  </body>
 </html>
