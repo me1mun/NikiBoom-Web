@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Niki Merge</title>
+    <title>Niki Boom</title>
+    <script src="playDeckBridge.js"></script>
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
     <canvas id="unity-canvas" width=520 height=960 tabindex="-1" style="width: 520px; height: 960px; background: #231F20"></canvas>
@@ -25,15 +26,22 @@
       }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/5f4344fe05be031270c64181a8c80e64.data",
-        frameworkUrl: "Build/89ab6b901b8a2b5bb5588006ed100f69.js",
-        codeUrl: "Build/812104f4fcdb1a8db0ce2f76bd6c2bf7.wasm",
+        dataUrl: "Build/fa83a76d2295b6330ba07d0902cdcfd4.data",
+        frameworkUrl: "Build/26d79e0023d0267d2325dd2fb080c85c.js",
+        codeUrl: "Build/566fe4f5b74e1876b9061cf64538b96e.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Niki Company",
         productName: "Niki Merge",
-        productVersion: "3.0.0",
+        productVersion: "3.1.0",
         // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      });
+
+      const playdeckBridgeInstance = playDeckBridge();
+      createUnityInstance(canvas, config, (progress) => {
+          playdeckBridgeInstance?.setLoadingProgress(progress * 100)
+      }).then(unityInstance => {
+          playdeckBridgeInstance?.init(unityInstance);
       });
     </script>
   </body>
