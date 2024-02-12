@@ -25,23 +25,21 @@
         document.body.style.textAlign = "left";
       }
 
+      const playdeckBridgeInstance = playDeckBridge();
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/fa83a76d2295b6330ba07d0902cdcfd4.data",
-        frameworkUrl: "Build/26d79e0023d0267d2325dd2fb080c85c.js",
-        codeUrl: "Build/566fe4f5b74e1876b9061cf64538b96e.wasm",
+        dataUrl: "Build/a90dbc15301c539d0cb953c5978ebb0b.data",
+        frameworkUrl: "Build/999dd2fc6d6bfbb917c09f7376132edd.js",
+        codeUrl: "Build/ee4bc58d7c50992ae21d745b118e1167.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Niki Company",
-        productName: "Niki Merge",
-        productVersion: "3.1.0",
+        productName: "Niki Boom",
+        productVersion: "3.2.0",
         // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
-      });
-
-      const playdeckBridgeInstance = playDeckBridge();
-      createUnityInstance(canvas, config, (progress) => {
-          playdeckBridgeInstance?.setLoadingProgress(progress * 100)
+      }, (progress) => {
+        playdeckBridgeInstance?.setLoadingProgress(progress * 100)
       }).then(unityInstance => {
-          playdeckBridgeInstance?.init(unityInstance);
+        playdeckBridgeInstance?.init(unityInstance);
       });
     </script>
   </body>
