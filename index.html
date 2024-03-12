@@ -7,9 +7,20 @@
     <title>Niki Boom</title>
     <script src="playDeckBridge.js"></script>
 </head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    body{
+        overflow: hidden;
+    }
+</style>
 <body class="dark">
 <div id="unity-container" style="position: absolute; width: 100%; height: 100%">
-    <canvas id="unity-canvas" width=520 height=960 style="width: 100%; height: 100%"></canvas>
+    <canvas id="unity-canvas" style="width: 100%; height: 100%"></canvas>
 </div>
 <script>
     const buildUrl = "Build";
